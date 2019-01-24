@@ -44,6 +44,7 @@ Aircraft::Aircraft(Type type, const TextureHolder& textures, const FontHolder& f
 	mExplosion.setDuration(sf::seconds(1));
 
 	centreOrigin(mSprite);
+	//setOriginAndReadjust(mSprite, sf::Vector2f(0,0));
 	centreOrigin(mExplosion);
 
 	mFireCommand.category = static_cast<int>(Category::SceneAirLayer);
@@ -91,7 +92,7 @@ void Aircraft::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
 	// Update texts and roll animation
 	updateTexts();
-	updateRollAnimation();
+	//updateRollAnimation();
 
 	// Entity has been destroyed: Possibly drop pickup, mark for removal
 	if (isDestroyed())
@@ -309,23 +310,7 @@ void Aircraft::updateTexts()
 	}
 }
 
-void Aircraft::updateRollAnimation()
-{
-	if (Table[static_cast<int>(mType)].hasRollAnimation)
-	{
-		sf::IntRect textureRect = Table[static_cast<int>(mType)].textureRect;
 
-		// Roll left: Texture rect offset once
-		if (getVelocity().x < 0.f)
-			textureRect.left += textureRect.width;
-
-		// Roll right: Texture rect offset twice
-		else if (getVelocity().x > 0.f)
-			textureRect.left += 2 * textureRect.width;
-
-		mSprite.setTextureRect(textureRect);
-	}
-}
 
 void Aircraft::playLocalSound(CommandQueue& commands, SoundEffectIDs effect)
 {

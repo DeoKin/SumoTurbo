@@ -24,10 +24,21 @@ void centreOrigin(sf::Sprite & sprite)
 	sprite.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
 }
 
+
+
 void centreOrigin(sf::Text & text)
 {
 	sf::FloatRect bounds = text.getLocalBounds();
 	text.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+}
+
+//https://en.sfml-dev.org/forums/index.php?topic=15568.0 Changed object to sprite
+
+void setOriginAndReadjust(sf::Sprite & sprite, const sf::Vector2f xy)
+{
+	auto offset = xy - sprite.getOrigin();
+	sprite.setOrigin(xy);
+	sprite.move(offset);
 }
 
 void centreOrigin(Animation& animation)

@@ -14,17 +14,17 @@ struct AircraftMover
 	{
 
 	}
+	// Add Rotation to update
+	AircraftMover(float d) : rotation(d)
+	{
+
+	}
 	void operator() (Aircraft& aircraft, sf::Time) const
 	{
 		aircraft.accelerate(velocity * aircraft.getMaxSpeed());
 		aircraft.rotate(rotation);
 	}
 	sf::Vector2f velocity;
-	// Add Rotation to update
-	AircraftMover(float d) : rotation(d)
-	{
-
-	}
 	float rotation;
 };
 
@@ -123,9 +123,8 @@ void Player::initializeActions()
 	mActionBinding[Action::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, 1));
 	mActionBinding[Action::Fire].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.fire(); });
 	mActionBinding[Action::LaunchMissile].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.launchMissile(); });
-	//Rotate
-	mActionBinding[Action::RotateAntiClockWise].action = derivedAction<Aircraft>(AircraftMover(-45.f));
-	mActionBinding[Action::RotateClockWise].action = derivedAction<Aircraft>(AircraftMover(45.f));
+	mActionBinding[Action::RotateAntiClockWise].action = derivedAction<Aircraft>(AircraftMover(-5.f)); //Rotate
+	mActionBinding[Action::RotateClockWise].action = derivedAction<Aircraft>(AircraftMover(5.f));
 }
 
 bool Player::isRealtimeAction(Action action)

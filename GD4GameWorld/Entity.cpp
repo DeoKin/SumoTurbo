@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-Entity::Entity(int hitpoints) : mVelocity(), mHitpoints(hitpoints)
+Entity::Entity(int hitpoints) : mVelocity(), mHitpoints(hitpoints) , mRotationSpeed()
 {
 
 }
@@ -10,6 +10,11 @@ Entity::Entity(int hitpoints) : mVelocity(), mHitpoints(hitpoints)
 void Entity::setVelocity(sf::Vector2f velocity)
 {
 	mVelocity = velocity;
+}
+
+void Entity::setRotationSpeed(float rotate)
+{
+	mRotationSpeed = rotate;
 }
 
 void Entity::setVelocity(float vx, float vy)
@@ -21,6 +26,11 @@ void Entity::setVelocity(float vx, float vy)
 sf::Vector2f Entity::getVelocity() const
 {
 	return mVelocity;
+}
+
+float Entity::getRotationSpeed() const
+{
+	return mRotationSpeed;
 }
 
 void Entity::accelerate(sf::Vector2f velocity)
@@ -69,4 +79,5 @@ bool Entity::isDestroyed() const
 void Entity::updateCurrent(sf::Time dt, CommandQueue&)
 {
 	move(mVelocity * dt.asSeconds());
+	rotate(mRotationSpeed * dt.asSeconds());
 }

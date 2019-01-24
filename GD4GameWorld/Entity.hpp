@@ -7,7 +7,9 @@ public:
 	explicit Entity(int hitpoints);
 	void setVelocity(sf::Vector2f velocity);
 	void setVelocity(float vx, float vy);
+	void setRotationSpeed(float d);
 	sf::Vector2f getVelocity() const;
+	float getRotationSpeed() const;
 	void accelerate(sf::Vector2f velocity);
 	void accelerate(float vx, float vy);
 
@@ -25,5 +27,6 @@ private:
 
 private:
 	sf::Vector2f mVelocity;
+	float mRotationSpeed;
 	int mHitpoints;
 };

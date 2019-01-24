@@ -14,6 +14,7 @@ class Animation;
 
 void centreOrigin(sf::Sprite& sprite);
 void centreOrigin(sf::Text& text);
+void setOriginAndReadjust(sf::Sprite& sprite,const sf::Vector2f xy);
 void centreOrigin(Animation& animation);
 float toRadians(float degrees);
 float toDegrees(float radians);

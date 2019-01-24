@@ -24,6 +24,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, 5000.f)
 	// set Outside ring, Set inner Ring, Set new sides
 	, mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
+	, mSpawnRotation(90.f)
 	, mScrollSpeed(0.f) //Sey Scroll to 0 instead of -50
 	, mPlayerAircraft(nullptr)
 	, mEnemySpawnPoints()
@@ -43,6 +44,7 @@ void World::update(sf::Time dt)
 	// Scroll the world, reset player velocity
 	mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
 	mPlayerAircraft->setVelocity(0.f, 0.f);
+	//mPlayerAircraft->setRotation(0.f);
 
 	// Setup commands to destroy entities, and guide missiles
 	destroyEntitiesOutsideView();
@@ -58,7 +60,7 @@ void World::update(sf::Time dt)
 
 	// Remove all destroyed entities, create new ones
 	mSceneGraph.removeWrecks();
-	spawnEnemies();
+	//spawnEnemies();
 
 	// Regular update step, adapt position (correct if outside view)
 	mSceneGraph.update(dt, mCommandQueue);
@@ -121,8 +123,15 @@ void World::adaptPlayerPosition()
 	mPlayerAircraft->setPosition(position);
 
 	//Playeers Rotation 
+	
 	float rotation = mPlayerAircraft->getRotation();
-	mPlayerAircraft->setRotation(rotation);
+	/*float maxRotation = 0;
+	if (rotation > 5)
+	{
+		float maxRotation = -rotation;
+	}
+	*/
+	mPlayerAircraft->setRotation(rotation); // * maxRotation);
 }
 
 void World::adaptPlayerVelocity()
@@ -131,10 +140,10 @@ void World::adaptPlayerVelocity()
 
 	// If moving diagonally, reduce velocity (to have always same velocity)
 	if (velocity.x != 0.f && velocity.y != 0.f)
-		mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
+	   mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
 
 	// Add scrolling velocity
-	mPlayerAircraft->accelerate(0.f, mScrollSpeed);
+	//mPlayerAircraft->accelerate(0.f, mScrollSpeed);
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, Category type1, Category type2)
@@ -253,9 +262,10 @@ void World::buildScene()
 	mSceneGraph.attachChild(std::move(soundNode));
 
 	// Add player's aircraft
-	std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Type::Eagle, mTextures, mFonts));
+	std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Type::Eagle, mTextures, mFonts));//Setting Player Charater
 	mPlayerAircraft = player.get();
 	mPlayerAircraft->setPosition(mSpawnPosition);
+	mPlayerAircraft->setRotation(mSpawnRotation);
 	mSceneLayers[Layer::UpperAir]->attachChild(std::move(player));
 
 	// Add enemy aircraft
