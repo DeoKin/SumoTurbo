@@ -10,15 +10,15 @@ using namespace std::placeholders;
 
 struct AircraftMover
 {
-	AircraftMover(float vx, float vy, float r) : velocity(vx, vy), rotation(r)
+	AircraftMover(float vx, float vy) : velocity(vx, vy)
 	{
 
 	}
 	// Add Rotation to update
-	//AircraftMover(float d) : rotation(d)
-	//{
+	AircraftMover(float d) : rotation(d)
+	{
 
-	//}
+	}
 	void operator() (Aircraft& aircraft, sf::Time) const
 	{
 		aircraft.accelerate(velocity * aircraft.getMaxSpeed());
@@ -117,14 +117,14 @@ Player::MissionStatus Player::getMissionStatus() const
 
 void Player::initializeActions()
 {
-	mActionBinding[Action::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-1, 0.f, 0.f)); //Moves Position (x,y)
-	mActionBinding[Action::MoveRight].action = derivedAction<Aircraft>(AircraftMover(1, 0.f, 0.f));
-	mActionBinding[Action::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -1, 0.f));
-	mActionBinding[Action::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, 1, 0.f));
+	mActionBinding[Action::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-1, 0.f)); //Moves Position (x,y)
+	mActionBinding[Action::MoveRight].action = derivedAction<Aircraft>(AircraftMover(1, 0.f));
+	mActionBinding[Action::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -1));
+	mActionBinding[Action::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, 1));
 	mActionBinding[Action::Fire].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.fire(); });
 	mActionBinding[Action::LaunchMissile].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.launchMissile(); });
-	mActionBinding[Action::RotateAntiClockWise].action = derivedAction<Aircraft>(AircraftMover(0.f, 0.f, -5.f)); //Rotate
-	mActionBinding[Action::RotateClockWise].action = derivedAction<Aircraft>(AircraftMover(0.f, 0.f, 5.f));
+	mActionBinding[Action::RotateAntiClockWise].action = derivedAction<Aircraft>(AircraftMover(-5.f)); //Rotate
+	mActionBinding[Action::RotateClockWise].action = derivedAction<Aircraft>(AircraftMover(5.f));
 }
 
 bool Player::isRealtimeAction(Action action)
