@@ -1,7 +1,7 @@
 #include "Player.hpp"
 #include "CommandQueue.hpp"
 #include "Aircraft.hpp"
-
+#include "Utility.hpp"
 #include <map>
 #include <string>
 #include <algorithm>
@@ -21,8 +21,11 @@ struct AircraftMover
 	//}
 	void operator() (Aircraft& aircraft, sf::Time) const
 	{
+		
 		aircraft.accelerate(velocity * aircraft.getMaxSpeed());
 		aircraft.rotate(rotation);
+		aircraft.distance(velocity, rotation);
+		
 	}
 	sf::Vector2f velocity;
 	float rotation;
@@ -34,8 +37,8 @@ Player::Player()
 	//Set initial key bindings
 	mKeyBinding[sf::Keyboard::Left] = Action::MoveLeft;
 	mKeyBinding[sf::Keyboard::Right] = Action::MoveRight;
-	mKeyBinding[sf::Keyboard::Up] = Action::MoveUp;
-	mKeyBinding[sf::Keyboard::Down] = Action::MoveDown;
+	mKeyBinding[sf::Keyboard::W] = Action::MoveUp;
+	mKeyBinding[sf::Keyboard::S] = Action::MoveDown;
 	mKeyBinding[sf::Keyboard::Space] = Action::Fire;
 	mKeyBinding[sf::Keyboard::M] = Action::LaunchMissile;
 	mKeyBinding[sf::Keyboard::A] = Action::RotateAntiClockWise;

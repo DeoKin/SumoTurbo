@@ -2,7 +2,7 @@
 
 #include <cassert>
 
-Entity::Entity(int hitpoints) : mVelocity(), mHitpoints(hitpoints) , mRotationSpeed()
+Entity::Entity(int hitpoints) : mVelocity(), mHitpoints(hitpoints) , mRotation()
 {
 
 }
@@ -12,9 +12,9 @@ void Entity::setVelocity(sf::Vector2f velocity)
 	mVelocity = velocity;
 }
 
-void Entity::setRotationSpeed(float rotate)
+void Entity::setRotation(float rotate)
 {
-	mRotationSpeed = rotate;
+	mRotation = rotate;
 }
 
 void Entity::setVelocity(float vx, float vy)
@@ -28,9 +28,9 @@ sf::Vector2f Entity::getVelocity() const
 	return mVelocity;
 }
 
-float Entity::getRotationSpeed() const
+float Entity::getRotation() const
 {
-	return mRotationSpeed;
+	return mRotation;
 }
 
 void Entity::accelerate(sf::Vector2f velocity)
@@ -42,6 +42,12 @@ void Entity::accelerate(float vx, float vy)
 {
 	mVelocity.x += vx;
 	mVelocity.y += vy;
+}
+
+void Entity::distance(sf::Vector2f velocity, float rotation)
+{
+	mVelocity.x += velocity.x * -sin(rotation);
+	mVelocity.y += velocity.y * cos(rotation);
 }
 
 int Entity::getHitpoints() const
@@ -78,6 +84,7 @@ bool Entity::isDestroyed() const
 
 void Entity::updateCurrent(sf::Time dt, CommandQueue&)
 {
+	rotate(mRotation * dt.asSeconds());
 	move(mVelocity * dt.asSeconds());
-	rotate(mRotationSpeed * dt.asSeconds());
+	distance(mVelocity, mRotation);
 }

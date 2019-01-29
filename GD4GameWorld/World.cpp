@@ -6,7 +6,7 @@
 #include "PostEffect.hpp"
 #include "SoundNode.hpp"
 #include <SFML/Graphics/RenderTarget.hpp>
-
+#include "Utility.hpp"
 #include <algorithm>
 #include <cmath>
 #include <limits>
@@ -24,7 +24,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, 5000.f)
 	// set Outside ring, Set inner Ring, Set new sides
 	, mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
-	, mSpawnRotation(90.f)
+	//, mSpawnRotation(90.f)
 	, mScrollSpeed(0.f) //Sey Scroll to 0 instead of -50
 	, mPlayerAircraft(nullptr)
 	, mEnemySpawnPoints()
@@ -124,24 +124,24 @@ void World::adaptPlayerPosition()
 
 	//Playeers Rotation 
 	
-	float rotation = mPlayerAircraft->getRotation();
+	//float rotation = mPlayerAircraft->getRotation();
 	/*float maxRotation = 0;
 	if (rotation > 5)
 	{
 		float maxRotation = -rotation;
 	}
 	*/
-	mPlayerAircraft->setRotation(rotation); // * maxRotation);
+	//mPlayerAircraft->setRotation(rotation); // * maxRotation);
 }
 
 void World::adaptPlayerVelocity()
 {
 	sf::Vector2f velocity = mPlayerAircraft->getVelocity();
-
+	float rotation = mPlayerAircraft->getRotation();
 	// If moving diagonally, reduce velocity (to have always same velocity)
 	if (velocity.x != 0.f && velocity.y != 0.f)
 	   mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
-
+	mPlayerAircraft->distance(velocity , toDegrees(rotation));
 	// Add scrolling velocity
 	//mPlayerAircraft->accelerate(0.f, mScrollSpeed);
 }
