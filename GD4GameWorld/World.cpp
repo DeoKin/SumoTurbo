@@ -45,6 +45,7 @@ void World::update(sf::Time dt)
 	mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
 	mPlayerAircraft->setVelocity(0.f, 0.f);
 	//mPlayerAircraft->setRotation(0.f);
+	mPlayerAircraft->setRotation(0.f);
 
 	// Setup commands to destroy entities, and guide missiles
 	destroyEntitiesOutsideView();
@@ -141,7 +142,7 @@ void World::adaptPlayerVelocity()
 	// If moving diagonally, reduce velocity (to have always same velocity)
 	if (velocity.x != 0.f && velocity.y != 0.f)
 	   mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
-	mPlayerAircraft->distance(velocity , toDegrees(rotation));
+	//mPlayerAircraft->distance(velocity , toDegrees(rotation));
 	// Add scrolling velocity
 	//mPlayerAircraft->accelerate(0.f, mScrollSpeed);
 }

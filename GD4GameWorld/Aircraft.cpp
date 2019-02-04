@@ -153,6 +153,11 @@ float Aircraft::getMaxSpeed() const
 	return Table[static_cast<int>(mType)].speed;
 }
 
+float Aircraft::getMaxRotationSpeed() const
+{
+	return Table[static_cast<int>(mType)].rotationSpeed;
+}
+
 void Aircraft::increaseFireRate()
 {
 	if (mFireRateLevel < 10)
@@ -207,6 +212,9 @@ void Aircraft::updateMovementPattern(sf::Time dt)
 		setVelocity(vx, vy);
 
 		mTravelledDistance += getMaxSpeed() * dt.asSeconds();
+
+
+
 	}
 }
 

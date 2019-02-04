@@ -24,11 +24,15 @@ struct AircraftData
 {
 	int hitpoints;
 	float speed;
+	float rotationSpeed;
 	TextureIDs texture;
 	sf::IntRect textureRect;
 	sf::Time fireInterval;
 	std::vector<Direction> directions;
 	bool hasRollAnimation;
+	float directionAngle;
+	float directionDistance;
+	float directionRotation;
 };
 
 struct ProjectileData

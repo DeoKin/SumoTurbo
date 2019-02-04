@@ -11,7 +11,8 @@ std::vector<AircraftData> initializeAircraftData()
 {
 	std::vector<AircraftData> data(static_cast<int>(Aircraft::Type::TypeCount));
 	data[static_cast<int>(Aircraft::Type::Eagle)].hitpoints = EAGLEHITPOINTS;
-	data[static_cast<int>(Aircraft::Type::Eagle)].speed = 200.f;	
+	data[static_cast<int>(Aircraft::Type::Eagle)].speed = 200.f;
+	data[static_cast<int>(Aircraft::Type::Eagle)].rotationSpeed = 100.f;
 	data[static_cast<int>(Aircraft::Type::Eagle)].fireInterval = sf::seconds(1);
 	data[static_cast<int>(Aircraft::Type::Eagle)].texture = TextureIDs::Entities;
 	data[static_cast<int>(Aircraft::Type::Eagle)].textureRect = sf::IntRect(0,0, 48, 64);
@@ -19,6 +20,7 @@ std::vector<AircraftData> initializeAircraftData()
 
 	data[static_cast<int>(Aircraft::Type::Raptor)].hitpoints = 20;
 	data[static_cast<int>(Aircraft::Type::Raptor)].speed = 80.f;
+	
 	data[static_cast<int>(Aircraft::Type::Raptor)].texture = TextureIDs::Entities;
 	data[static_cast<int>(Aircraft::Type::Raptor)].textureRect = sf::IntRect(144, 0, 84, 64);
 	data[static_cast<int>(Aircraft::Type::Raptor)].fireInterval = sf::Time::Zero;
@@ -29,6 +31,7 @@ std::vector<AircraftData> initializeAircraftData()
 
 	data[static_cast<int>(Aircraft::Type::Avenger)].hitpoints = 40;
 	data[static_cast<int>(Aircraft::Type::Avenger)].speed = 50.f;
+	data[static_cast<int>(Aircraft::Type::Avenger)].rotationSpeed = 50.f;
 	data[static_cast<int>(Aircraft::Type::Avenger)].texture = TextureIDs::Entities;
 	data[static_cast<int>(Aircraft::Type::Avenger)].textureRect = sf::IntRect(228, 0, 60, 59);
 	data[static_cast<int>(Aircraft::Type::Avenger)].fireInterval = sf::seconds(2);

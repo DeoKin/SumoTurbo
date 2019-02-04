@@ -2,6 +2,7 @@
 #include "CommandQueue.hpp"
 #include "Aircraft.hpp"
 #include "Utility.hpp"
+
 #include <map>
 #include <string>
 #include <algorithm>
@@ -10,7 +11,7 @@ using namespace std::placeholders;
 
 struct AircraftMover
 {
-	AircraftMover(float vx, float vy, float r) : velocity(vx, vy), rotation(r)
+	AircraftMover(float vx, float vy) : velocity(vx, vy)//, rotation(r)
 	{
 
 	}
@@ -23,11 +24,25 @@ struct AircraftMover
 	{
 		
 		aircraft.accelerate(velocity * aircraft.getMaxSpeed());
-		aircraft.rotate(rotation);
-		aircraft.distance(velocity, rotation);
+		///aircraft.rotate(rotation);
+		//aircraft.distance(velocity, rotation);
 		
 	}
 	sf::Vector2f velocity;
+	//float rotation;
+};
+
+struct AircraftRotator
+{
+	AircraftRotator(float angle) : rotation(angle)
+	{
+
+	}
+	void operator() (Aircraft& aircraft, sf::Time) const
+	{
+		aircraft.rotate(rotation * aircraft.getMaxRotationSpeed());
+	}
+
 	float rotation;
 };
 
@@ -120,14 +135,14 @@ Player::MissionStatus Player::getMissionStatus() const
 
 void Player::initializeActions()
 {
-	mActionBinding[Action::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-1, 0.f, 0.f)); //Moves Position (x,y)
-	mActionBinding[Action::MoveRight].action = derivedAction<Aircraft>(AircraftMover(1, 0.f, 0.f));
-	mActionBinding[Action::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -1, 0.f));
-	mActionBinding[Action::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, 1, 0.f));
+	mActionBinding[Action::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-1, 0.f)); //Moves Position (x,y)
+	mActionBinding[Action::MoveRight].action = derivedAction<Aircraft>(AircraftMover(1, 0.f));
+	mActionBinding[Action::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -1));
+	mActionBinding[Action::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, 1));
 	mActionBinding[Action::Fire].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.fire(); });
 	mActionBinding[Action::LaunchMissile].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.launchMissile(); });
-	mActionBinding[Action::RotateAntiClockWise].action = derivedAction<Aircraft>(AircraftMover(0.f, 0.f, -5.f)); //Rotate
-	mActionBinding[Action::RotateClockWise].action = derivedAction<Aircraft>(AircraftMover(0.f, 0.f, 5.f));
+	mActionBinding[Action::RotateAntiClockWise].action = derivedAction<Aircraft>(AircraftRotator(-5.f)); //Rotate
+	mActionBinding[Action::RotateClockWise].action = derivedAction<Aircraft>(AircraftRotator(5.f));
 }
 
 bool Player::isRealtimeAction(Action action)

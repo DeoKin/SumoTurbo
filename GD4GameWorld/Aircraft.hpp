@@ -21,6 +21,7 @@ public:
 	virtual bool isMarkedForRemoval() const;
 	bool isAllied() const;
 	float getMaxSpeed() const;
+	float getMaxRotationSpeed() const;
 
 	void increaseFireRate();
 	void increaseSpread();
