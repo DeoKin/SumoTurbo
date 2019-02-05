@@ -44,7 +44,6 @@ Aircraft::Aircraft(Type type, const TextureHolder& textures, const FontHolder& f
 	mExplosion.setDuration(sf::seconds(1));
 
 	centreOrigin(mSprite);
-	//setOriginAndReadjust(mSprite, sf::Vector2f(0,0));
 	centreOrigin(mExplosion);
 
 	mFireCommand.category = static_cast<int>(Category::SceneAirLayer);

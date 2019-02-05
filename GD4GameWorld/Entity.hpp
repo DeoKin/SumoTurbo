@@ -13,7 +13,7 @@ public:
 	void rotate(float rotation);
 	void accelerate(sf::Vector2f velocity);
 	void accelerate(float vx, float vy);
-	//void distance(sf::Vector2f velocity, float r);
+	void distance(sf::Vector2f velocity, float angle);
 
 	int getHitpoints() const;
 	void repair(int points);

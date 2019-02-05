@@ -50,11 +50,12 @@ void Entity::accelerate(float vx, float vy)
 	mVelocity.y += vy;
 }
 
-/*void Entity::distance(sf::Vector2f velocity, float rotation)
+void Entity::distance(sf::Vector2f velocity, float rotation)
 {
-	mVelocity.x += velocity.x * -sin(rotation);
-	mVelocity.y += velocity.y * cos(rotation);
-}*/
+	mVelocity.x += velocity.x * -cos(rotation);
+	mVelocity.y += velocity.y * sin(rotation);
+	mVelocity = mDistance;
+}
 
 int Entity::getHitpoints() const
 {
@@ -92,5 +93,6 @@ void Entity::updateCurrent(sf::Time dt, CommandQueue&)
 {
 	rotate(mRotation * dt.asSeconds());
 	move(mVelocity * dt.asSeconds());
-	//distance(mVelocity, mRotation);
+	distance(mVelocity * dt.asSeconds(), mRotation * dt.asSeconds());
+	move(mDistance);
 }
