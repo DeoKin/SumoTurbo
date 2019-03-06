@@ -104,7 +104,7 @@ bool World::hasPlayerReachedEnd() const
 void World::loadTextures()
 {
 	mTextures.load(TextureIDs::Entities, "Media/Textures/Entities.png");
-	mTextures.load(TextureIDs::Jungle, "Media/Textures/Jungle.png"); // MAP BACKGROUND
+	mTextures.load(TextureIDs::Jungle, "Media/Textures/GameplayMap.png"); // MAP BACKGROUND
 	mTextures.load(TextureIDs::Explosion, "Media/Textures/Explosion.png");
 	mTextures.load(TextureIDs::Particle, "Media/Textures/Particle.png");
 	mTextures.load(TextureIDs::FinishLine, "Media/Textures/FinishLine.png");
@@ -241,7 +241,7 @@ void World::buildScene()
 
 	// Add the background sprite to the scene
 	std::unique_ptr<SpriteNode> jungleSprite(new SpriteNode(jungleTexture, textureRect));
-	jungleSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
+	jungleSprite->setPosition(mWorldBounds.left, mWorldBounds.top); // Change Background Position
 	mSceneLayers[Layer::Background]->attachChild(std::move(jungleSprite));
 
 	// Add the finish line to the scene
