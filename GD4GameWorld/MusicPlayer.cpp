@@ -4,7 +4,7 @@
 MusicPlayer::MusicPlayer()
 	:mMusic(), mFilenames(), mVolume(1.f)
 {
-	mFilenames[MusicIDs::MenuTheme] = "Media/Music/MenuTheme.ogg";
+	mFilenames[MusicIDs::MenuTheme] = "Media/Music/SumboBashMusic.ogg";
 	mFilenames[MusicIDs::MissionTheme] = "Media/Music/MissionTheme.ogg";
 }
 
@@ -29,11 +29,13 @@ void MusicPlayer::setPaused(bool paused)
 {
 	if (paused)
 	{
-		mMusic.pause();
+		//mMusic.pause();
+		mMusic.setPitch(0.75f); // Change Musis to a lower pitch when Pauseed
 	}
 	else
 	{
-		mMusic.play();
+		//mMusic.play();
+		mMusic.setPitch(1);
 	}
 }
 

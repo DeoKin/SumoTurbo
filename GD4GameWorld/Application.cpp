@@ -28,8 +28,8 @@ Application::Application()
 
 	mFonts.load(FontIDs::Main, "Media/Sansation.ttf");
 
-	mTextures.load(TextureIDs::TitleScreen, "Media/Textures/TitleScreen.png");
-	mTextures.load(TextureIDs::Buttons, "Media/Textures/Buttons.png");
+	mTextures.load(TextureIDs::TitleScreen, "Media/Textures/SumboBackground.png");
+	mTextures.load(TextureIDs::Buttons, "Media/Textures/SumboButtons.png");
 
 	mStatisticsText.setFont(mFonts.get(FontIDs::Main));
 	mStatisticsText.setPosition(5.f, 5.f);

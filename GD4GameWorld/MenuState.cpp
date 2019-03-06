@@ -16,7 +16,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	mBackgroundSprite.setTexture(texture);
 
 	auto playButton = std::make_shared<GUI::Button>(context);
-	playButton->setPosition(100, 250);
+	playButton->setPosition(700, 200);
 	playButton->setText("Play");
 	playButton->setCallback([this]()
 	{
@@ -25,7 +25,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	});
 
 	auto settingsButton = std::make_shared<GUI::Button>(context);
-	settingsButton->setPosition(100, 300);
+	settingsButton->setPosition(700, 350);
 	settingsButton->setText("Settings");
 	settingsButton->setCallback([this]()
 	{
@@ -33,7 +33,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	});
 
 	auto exitButton = std::make_shared<GUI::Button>(context);
-	exitButton->setPosition(100, 350);
+	exitButton->setPosition(700, 500);
 	exitButton->setText("Exit");
 	exitButton->setCallback([this]()
 	{
