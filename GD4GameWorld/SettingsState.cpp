@@ -17,7 +17,13 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 	addButtonLabel(Player::Action::MoveUp, 250.f, "Move Up", context);
 	addButtonLabel(Player::Action::MoveDown, 300.f, "Move Down", context);
 	addButtonLabel(Player::Action::Fire, 500.f, "Fire", context);
-	addButtonLabel(Player::Action::LaunchMissile, 550.f, "Missile", context);
+
+	//player 2
+	addButtonLabel(Player::Action::MoveLeft, 150.f, "Move Left", context);
+	addButtonLabel(Player::Action::MoveRight, 200.f, "Move Right", context);
+	addButtonLabel(Player::Action::MoveUp, 250.f, "Move Up", context);
+	addButtonLabel(Player::Action::MoveDown, 300.f, "Move Down", context);
+	addButtonLabel(Player::Action::Fire, 500.f, "Fire", context);
 
 	updateLabels();
 
@@ -85,6 +91,11 @@ void SettingsState::addButtonLabel(Player::Action action, float y, const std::st
 {
 	mBindingButtons[static_cast<int>(action)] = std::make_shared<GUI::Button>(context);
 	mBindingButtons[static_cast<int>(action)]->setPosition(80.f, y);
+	i++;
+		if (i >= 6) // Amount of buttons per Player
+		{
+			mBindingButtons[static_cast<int>(action)]->setPosition(380.f, y);
+		}
 	mBindingButtons[static_cast<int>(action)]->setText(text);
 	mBindingButtons[static_cast<int>(action)]->setToggle(true);
 

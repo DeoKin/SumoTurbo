@@ -55,7 +55,7 @@ Player::Player()
 	mKeyBinding[sf::Keyboard::W] = Action::MoveUp;
 	mKeyBinding[sf::Keyboard::S] = Action::MoveDown;
 	mKeyBinding[sf::Keyboard::Space] = Action::Fire;
-	mKeyBinding[sf::Keyboard::M] = Action::LaunchMissile;
+	//mKeyBinding[sf::Keyboard::M] = Action::LaunchMissile;
 	mKeyBinding[sf::Keyboard::A] = Action::RotateAntiClockWise;
 	mKeyBinding[sf::Keyboard::D] = Action::RotateClockWise;
 
@@ -140,7 +140,7 @@ void Player::initializeActions()
 	mActionBinding[Action::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -1, 0.f));
 	mActionBinding[Action::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, 1, 0.f));
 	mActionBinding[Action::Fire].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.fire(); });
-	mActionBinding[Action::LaunchMissile].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.launchMissile(); });
+	//mActionBinding[Action::LaunchMissile].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) { a.launchMissile(); });
 	mActionBinding[Action::RotateAntiClockWise].action = derivedAction<Aircraft>(AircraftMover(0.f , 0.f ,-5.f)); //Rotate
 	mActionBinding[Action::RotateClockWise].action = derivedAction<Aircraft>(AircraftMover(0.f, 0.f, 5.f));
 }

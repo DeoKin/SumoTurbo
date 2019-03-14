@@ -24,6 +24,15 @@ MenuState::MenuState(StateStack& stack, Context context)
 		requestStackPush(StateIDs::Game);
 	});
 
+	auto controlsButton = std::make_shared<GUI::Button>(context);
+	controlsButton->setPosition(700, 275);
+	controlsButton->setText("Controls");
+	controlsButton->setCallback([this]()
+	{
+		requestStackPop();
+		requestStackPush(StateIDs::Controls);
+	});
+
 	auto settingsButton = std::make_shared<GUI::Button>(context);
 	settingsButton->setPosition(700, 350);
 	settingsButton->setText("Settings");
@@ -41,6 +50,7 @@ MenuState::MenuState(StateStack& stack, Context context)
 	});
 
 	mGUIContainer.pack(playButton);
+	mGUIContainer.pack(controlsButton);
 	mGUIContainer.pack(settingsButton);
 	mGUIContainer.pack(exitButton);
 

@@ -6,6 +6,7 @@
 #include "MenuState.hpp"
 #include "GameState.hpp"
 #include "PauseState.hpp"
+#include "ControlsState.hpp"
 #include "SettingsState.hpp"
 #include "GameOverState.hpp"
 
@@ -29,6 +30,7 @@ Application::Application()
 	mFonts.load(FontIDs::Main, "Media/Sansation.ttf");
 
 	mTextures.load(TextureIDs::TitleScreen, "Media/Textures/SumboBackground.png");
+	mTextures.load(TextureIDs::ControlScreen, "Media/Textures/ControlsBackground.png");
 	mTextures.load(TextureIDs::Buttons, "Media/Textures/SumboButtons.png");
 
 	mStatisticsText.setFont(mFonts.get(FontIDs::Main));
@@ -112,5 +114,6 @@ void Application::registerStates()
 	mStateStack.registerState<GameState>(StateIDs::Game);
 	mStateStack.registerState<PauseState>(StateIDs::Pause);
 	mStateStack.registerState<SettingsState>(StateIDs::Settings);
+	mStateStack.registerState<ControlsState>(StateIDs::Controls);
 	mStateStack.registerState<GameOverState>(StateIDs::GameOver);
 }

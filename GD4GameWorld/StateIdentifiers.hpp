@@ -4,7 +4,8 @@ enum class StateIDs {
 	Title,
 	Menu,
 	Game,
+	Controls,
 	Settings,
 	Pause,
-	GameOver
+	GameOver,
 };
