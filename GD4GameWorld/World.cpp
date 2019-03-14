@@ -21,7 +21,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	, mSounds(sounds)
 	, mSceneGraph()
 	, mSceneLayers()
-	, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, 5000.f)
+	, mWorldBounds(0.f, 0.f, mWorldView.getSize().x, mWorldView.getSize().y)
 	// set Outside ring, Set inner Ring, Set new sides
 	, mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 	//, mSpawnRotation(90.f)
@@ -42,7 +42,7 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 void World::update(sf::Time dt)
 {
 	// Scroll the world, reset player velocity
-	mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
+	//mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
 	mPlayerAircraft->setVelocity(0.f, 0.f);
 	//mPlayerAircraft->setRotation(0.f);
 	mPlayerAircraft->setRotation(0.f);
