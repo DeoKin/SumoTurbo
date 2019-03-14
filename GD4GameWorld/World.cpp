@@ -25,8 +25,9 @@ World::World(sf::RenderTarget& outputTarget, FontHolder& fonts, SoundPlayer& sou
 	// set Outside ring, Set inner Ring, Set new sides
 	, mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f)
 	//, mSpawnRotation(90.f)
-	, mScrollSpeed(0.f) //Sey Scroll to 0 instead of -50
+	, mScrollSpeed(0.f) //Set Scroll to 0 instead of -50
 	, mPlayerAircraft(nullptr)
+	, mPlayerAircraft2(nullptr)
 	, mEnemySpawnPoints()
 	, mActiveEnemies()
 {
@@ -263,11 +264,19 @@ void World::buildScene()
 	mSceneGraph.attachChild(std::move(soundNode));
 
 	// Add player's aircraft
-	std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Type::Eagle, mTextures, mFonts));//Setting Player Charater
+	std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Type::Eagle, mTextures, mFonts)); //Setting Player Charater
 	mPlayerAircraft = player.get();
-	mPlayerAircraft->setPosition(mSpawnPosition);
-	mPlayerAircraft->setRotation(mSpawnRotation);
+	mPlayerAircraft->setPosition(mSpawnPosition.x ,mSpawnPosition.y - 100.f); // NEED TO MAKE GENERIC SPAWN POSTIONS FOR WHEN FILLED BY PLAYERS
+	mPlayerAircraft->setRotation(45.f); // Figure out how to rotation player
+
+	//Player 2
+	std::unique_ptr<Aircraft> player2(new Aircraft(Aircraft::Type::Eagle, mTextures, mFonts));
+	mPlayerAircraft2 = player2.get();
+	mPlayerAircraft2->setPosition(mSpawnPosition.x + 0.f, mSpawnPosition.x + 100.f);
+	mPlayerAircraft2->setRotation(mSpawnRotation);
+
 	mSceneLayers[Layer::UpperAir]->attachChild(std::move(player));
+	mSceneLayers[Layer::UpperAir]->attachChild(std::move(player2));
 
 	// Add enemy aircraft
 	//addEnemies(); STOPS ENEMIES SPAWNING

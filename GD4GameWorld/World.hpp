@@ -83,8 +83,9 @@ private:
 	float mSpawnRotation;
 	float mScrollSpeed;
 	Aircraft* mPlayerAircraft;
+	Aircraft* mPlayerAircraft2;
 
-	std::vector<SpawnPoint>	mEnemySpawnPoints;
+	std::vector<SpawnPoint>	mEnemySpawnPoints; // MAKE PLAYERS SPAWN IN VECTOR
 	std::vector<Aircraft*> mActiveEnemies;
 
 	BloomEffect	mBloomEffect;
