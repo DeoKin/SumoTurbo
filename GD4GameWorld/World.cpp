@@ -44,7 +44,7 @@ void World::update(sf::Time dt)
 {
 	// Scroll the world, reset player velocity
 	//mWorldView.move(0.f, mScrollSpeed * dt.asSeconds());
-	mPlayerAircraft->setVelocity(0.f, 0.f);
+	//mPlayerAircraft->setVelocity(0.f, 0.f);
 	//mPlayerAircraft->setRotation(0.f);
 	mPlayerAircraft->setRotation(0.f);
 
@@ -138,11 +138,12 @@ void World::adaptPlayerPosition()
 
 void World::adaptPlayerVelocity()
 {
-	sf::Vector2f velocity = mPlayerAircraft->getVelocity();
 	float rotation = mPlayerAircraft->getRotation();
+	sf::Vector2f velocity = mPlayerAircraft->getVelocity();
+	
 	// If moving diagonally, reduce velocity (to have always same velocity)
-	if (velocity.x != 0.f && velocity.y != 0.f)
-	   mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
+	//if (velocity.x != 0.f && velocity.y != 0.f)
+	 //  mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
 	//mPlayerAircraft->distance(velocity , toDegrees(rotation));
 	// Add scrolling velocity
 	//mPlayerAircraft->accelerate(0.f, mScrollSpeed);
@@ -267,10 +268,10 @@ void World::buildScene()
 	std::unique_ptr<Aircraft> player(new Aircraft(Aircraft::Type::Eagle, mTextures, mFonts)); //Setting Player Charater
 	mPlayerAircraft = player.get();
 	mPlayerAircraft->setPosition(mSpawnPosition.x ,mSpawnPosition.y - 100.f); // NEED TO MAKE GENERIC SPAWN POSTIONS FOR WHEN FILLED BY PLAYERS
-	mPlayerAircraft->setRotation(45.f); // Figure out how to rotation player
+	mPlayerAircraft->setRotation(mSpawnRotation); // Figure out how to rotation player
 
 	//Player 2
-	std::unique_ptr<Aircraft> player2(new Aircraft(Aircraft::Type::Eagle, mTextures, mFonts));
+	std::unique_ptr<Aircraft> player2(new Aircraft(Aircraft::Type::Raptor, mTextures, mFonts)); //CHANGE AIRPLANE TYPE AS TO NOT MOVE
 	mPlayerAircraft2 = player2.get();
 	mPlayerAircraft2->setPosition(mSpawnPosition.x + 0.f, mSpawnPosition.x + 100.f);
 	mPlayerAircraft2->setRotation(mSpawnRotation);
@@ -290,26 +291,7 @@ void World::addEnemies()
 	addEnemy(Aircraft::Type::Raptor, +100.f, 1150.f);
 	addEnemy(Aircraft::Type::Raptor, -100.f, 1150.f);
 	addEnemy(Aircraft::Type::Avenger, 70.f, 1500.f);
-	addEnemy(Aircraft::Type::Avenger, -70.f, 1500.f);
-	addEnemy(Aircraft::Type::Avenger, -70.f, 1710.f);
-	addEnemy(Aircraft::Type::Avenger, 70.f, 1700.f);
-	addEnemy(Aircraft::Type::Avenger, 30.f, 1850.f);
-	addEnemy(Aircraft::Type::Raptor, 300.f, 2200.f);
-	addEnemy(Aircraft::Type::Raptor, -300.f, 2200.f);
-	addEnemy(Aircraft::Type::Raptor, 0.f, 2200.f);
-	addEnemy(Aircraft::Type::Raptor, 0.f, 2500.f);
-	addEnemy(Aircraft::Type::Avenger, -300.f, 2700.f);
-	addEnemy(Aircraft::Type::Avenger, -300.f, 2700.f);
-	addEnemy(Aircraft::Type::Raptor, 0.f, 3000.f);
-	addEnemy(Aircraft::Type::Raptor, 250.f, 3250.f);
-	addEnemy(Aircraft::Type::Raptor, -250.f, 3250.f);
-	addEnemy(Aircraft::Type::Avenger, 0.f, 3500.f);
-	addEnemy(Aircraft::Type::Avenger, 0.f, 3700.f);
-	addEnemy(Aircraft::Type::Raptor, 0.f, 3800.f);
-	addEnemy(Aircraft::Type::Avenger, 0.f, 4000.f);
-	addEnemy(Aircraft::Type::Avenger, -200.f, 4200.f);
-	addEnemy(Aircraft::Type::Raptor, 200.f, 4200.f);
-	addEnemy(Aircraft::Type::Raptor, 0.f, 4400.f);
+
 	// Sort all enemies according to their y value, such that lower enemies are checked first for spawning
 	std::sort(mEnemySpawnPoints.begin(), mEnemySpawnPoints.end(), [](SpawnPoint lhs, SpawnPoint rhs)
 	{
@@ -322,6 +304,13 @@ void World::addEnemy(Aircraft::Type type, float relX, float relY)
 	SpawnPoint spawn(type, mSpawnPosition.x + relX, mSpawnPosition.y - relY);
 	mEnemySpawnPoints.push_back(spawn);
 }
+
+// Player Version
+//void World::addPlayer(Aircraft::Type type, float relX, float relY)
+//{
+//	SpawnPoint spawn(type, mSpawnPosition.x + relX, mSpawnPosition.y - relY);
+//	mEnemySpawnPoints.push_back(spawn);
+//}
 
 void World::spawnEnemies()
 {
@@ -378,6 +367,8 @@ void World::guideMissiles()
 		float minDistance = std::numeric_limits<float>::max();
 		Aircraft* closestEnemy = nullptr;
 
+
+		// ADAPT TO CHANGE MECHANIC to PLAYERS
 		// Find closest enemy
 		for(Aircraft* enemy : mActiveEnemies)
 		{

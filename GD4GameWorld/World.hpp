@@ -44,6 +44,7 @@ private:
 	void addEnemies();
 	void addEnemy(Aircraft::Type type, float relX, float relY);
 	void spawnEnemies();
+	void spawnPlayers();
 	void destroyEntitiesOutsideView();
 	void guideMissiles();
 	sf::FloatRect getViewBounds() const;
@@ -86,6 +87,7 @@ private:
 	Aircraft* mPlayerAircraft2;
 
 	std::vector<SpawnPoint>	mEnemySpawnPoints; // MAKE PLAYERS SPAWN IN VECTOR
+	std::vector<SpawnPoint>	mPlayerSpawnPoints;
 	std::vector<Aircraft*> mActiveEnemies;
 
 	BloomEffect	mBloomEffect;
